@@ -24,7 +24,7 @@ example : python brocode.py -e mykey "what is goin on"
     what+ is+go in+on
   ```
   Then convert the blocks into its digital equivalent from the dictionary table. a=01, b=02, ... , z=26, +=00.
-    ```'what+'=2308012000, 'is+go'=0919000715   'in+on'=0914001514```
+    ```'what+'=2308012000, 'is+go'=0919000715,  'in+on'=0914001514```
   Proceed to convert the encryption key to its digital equivalent also
     ``` mykey:1325110525 ```
     
@@ -35,5 +35,6 @@ example : python brocode.py -e mykey "what is goin on"
         ----------  ----------  ----------
         0906122525  2217111213  2220111211 ----> "iflyy vqklm vlktl"
    ```
+   The string is finally encrypted as ```iflyy vqklm vlktl``` by encryption_key ```mykey```
     
   
