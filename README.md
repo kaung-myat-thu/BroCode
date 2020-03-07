@@ -12,7 +12,7 @@ usage : python brocode.py [-d or -e] [encryption_key] [content_string] [-v or no
 ```
 example : python brocode.py -e mykey "what is goin on" 
 ```
-# Encryption Method
+### Encryption Method
 
   String : "what is goin on"
   
