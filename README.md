@@ -1,5 +1,7 @@
 # BroCode
-  "BroCode" is a tool capable of encrypting, decrypting a-z, 0-9, string with encryption key. The encryption key is of course can be anything but only known by authorized ones. This tools mainly is to improve my python skill as well as my for my own personal uses. Below you can see how "what is goin on 123" string is encrypted with a encryption key "mykey" string. Tip: Standalone programs are in the bin for those in case you're not aware of.
+   "BroCode" is a tool capable of encrypting, decrypting a-z, 0-9, string with encryption key. The encryption key is of course can be anything but only known by authorized ones. This tools mainly is to improve my python skill as well as my for my own personal uses. Below you can see how "what is goin on 123" string is encrypted with a encryption key "mykey" string. 
+   
+**Tip:** Standalone programs are in the bin for those in case you're not aware of.
 
 ### Encryption Method
 
