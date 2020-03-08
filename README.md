@@ -22,7 +22,7 @@
         2308012000  0919000715  0914001514 0027282900
         1325110525  1325110525  1325110525 1325110525
         ----------  ----------  ---------- -----------
-        3633122525  2207111203  2202112002 1315023425  ----> "07ly yvgk lcvb ktbm ob8y"
+        3633122525  2207111203  2202112002 1315023425  ----> "07lyy vgklc vbktb mob8y"
    ```
    The string is finally encrypted as ```07lyyvgklcvbktbmob8y``` by encryption_key ```mykey```
     
@@ -34,7 +34,10 @@
   ```
    pip install art
    ```
-  After this script should be ready. Run the command in the python.py folder
+  After this script should be ready. 
+  
+## Usage
+  Run the command in the python.py folder
 ```
 usage : python brocode.py [-d or -e] [encryption_key] [content_string] [-v or none]
 ```
