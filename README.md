@@ -25,6 +25,12 @@
         3633122525  2207111203  2202112002 1315023425  ----> "07lyy vgklc vbktb mob8y"
    ```
    The string is finally encrypted as ```07lyyvgklcvbktbmob8y``` by encryption_key ```mykey```
+   
+#### Encode
+   ![image of encode](https://github.com/kaung-myat-thu/BroCode/blob/master/images/encode.png)
+   
+#### Decode
+   ![image of decode](https://github.com/kaung-myat-thu/BroCode/blob/master/images/decode.png)
     
 ### Requirement & Installation
   Clone this repository to your system in your desire folder.
@@ -49,6 +55,7 @@ usage : python brocode.py [-d or -e] [encryption_key] [content_string] [-v or no
 ```
 example : python brocode.py -e mykey "what is goin on" 
 ```
+
 
  #### Linux version
  
