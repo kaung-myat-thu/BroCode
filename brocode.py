@@ -1,10 +1,11 @@
 #!/bin/python
 
 import sys
+from art import * 
 
 #Created By Kaung Myat Thu 
-#This encrption tool only support english character 'a,b,...,z' and ' ' (spaces)
-#Github
+#This encrption tool only support english character 'a,b,...,z' , '1,2,3,...,9,0' and ' ' (spaces)
+#Github https://github.com/kaung-myat-thu/BroCode
 mode = str()
 key = str()
 content = str()
@@ -38,6 +39,16 @@ dictionTable={
     "x": 24,
     "y": 25,
     "z": 26,
+    "1": 27,
+    "2": 28,
+    "3": 29,
+    "4": 30,
+    "5": 31,
+    "6": 32,
+    "7": 33,
+    "8": 34,
+    "9": 35,
+    "0": 36,
     "+": 0
 }
 
@@ -61,10 +72,10 @@ def main(mode):
         elif mode == '-e':
             Encode(content,key)
         else:
-            exit()
+            sys.exit()
     except:
         DisplayUsage()
-        exit()
+        sys.exit()
 
 
 
@@ -80,14 +91,14 @@ def Encode(content, key): ####################### Encode Function Defination : T
     key = key.replace(' ', '+')
     contLen = len(content)
     keyLen = len(key)
-    counter = 1         #to count how many while loop has been passed as it can be useful later on 
     blocks = list()     #to store separated values
 
     if (keyLen > contLen) or (keyLen == contLen): #when encryption key's length is longer than the actual content
         content = content + ('+' * (keyLen - contLen))
         blocks.append(content[0:keyLen])
-        
-    buffer = keyLen     #using buffer to avoid conflicts
+    
+    counter = 1         #to count how many while loop has been passed as it can be useful later on 
+    buffer = keyLen     
     if keyLen < contLen:    #when encrption key's length is shorter than the content
         while contLen > buffer:          
             buffer = counter * keyLen        
@@ -95,13 +106,10 @@ def Encode(content, key): ####################### Encode Function Defination : T
             #print(str(buffer))          #debuggin purposes
 
         content = content + '+' * (buffer - contLen)
-        del buffer # delete buffer var to avoid conflicts later on as the use of buffer is end here
+        del buffer 
+        del counter
 
-        for x in range(1,counter):
-            if x == 1:
-                blocks.append(content[x-1:keyLen*x])
-            else: 
-                blocks.append(content[keyLen*(x-1):keyLen*(x)])
+        blocks = AutoSeperate(content, len(key))
 
     if verboseflag == True:
         print("content: {0} , content_Length: {1} \nkey: {2} , key_Length: {3} \nChunks : {4}".format(content, len(content), key, keyLen,str(blocks)))
@@ -115,7 +123,7 @@ def Encode(content, key): ####################### Encode Function Defination : T
 
     keyList = AutoSeperate(key,2) #seperate the numbers so that it can perform maths ops
     if verboseflag == True:
-        print("key        : {}".format(keyList))
+        print(txtcolors.OKBLUE + "key        : {}".format(keyList) + txtcolors.RESET)
 
     buffer = list()
     sum = int()
@@ -126,7 +134,7 @@ def Encode(content, key): ####################### Encode Function Defination : T
         buffer = AutoSeperate(blocks[x],2)
 
         if verboseflag == True:
-            print("content[{}] : {}".format(x, buffer))
+            print(txtcolors.WARNING + "content[{}] : {}".format(x, buffer)+txtcolors.RESET)
 
         for y in range(len(key)/2):
             sum = int(buffer[y]) + int(keyList[y])
@@ -137,24 +145,28 @@ def Encode(content, key): ####################### Encode Function Defination : T
         buffer = AutoSeperate(blocks[x],2)
         
         if verboseflag == True:
-            print("sum[{}]     : {}".format(x,buffer))
+            print("sum[{}]     : {}".format(x,buffer) + txtcolors.RESET)
 
         blocks[x] = AlphaBize(buffer)
         bufferStr = ""
-        output = output + blocks[x] + " "
+        output = output + blocks[x]
 
     del bufferStr
     del sum
     del buffer 
-    print(txtcolors.OKGREEN + output)
+    print(txtcolors.BOLD + "[!]Encoded : " + txtcolors.OKGREEN + output)
 
 def Decode(content,key):
     key = key.replace(' ', '+')
     content = content.strip()
-    spacePos = content.find(' ')
     content = content.replace(' ', '')
     blocks = list()
-    blocks = AutoSeperate(content, spacePos)
+    blocks = AutoSeperate(content, len(key))
+
+    if(len(content)%len(key)!=0):
+        print(txtcolors.FAIL + "Provided hash is Invalid")
+        sys.exit()
+    
 
     if(verboseflag == True):
         print("key : {}, content : {}".format(key, blocks))
@@ -175,24 +187,30 @@ def Decode(content,key):
     bufferStr = str()
     output = str()
     for x in range(len(blocks)):
+
         bufferLst = AutoSeperate(blocks[x],2)
+
         if verboseflag == True:
-            print("content[{}] : {}".format(x, bufferLst))
+            print(txtcolors.WARNING + "content[{}] : {}".format(x, bufferLst) + txtcolors.RESET)
+
         for y in range(len(key)/2):
             if(int(bufferLst[y])<int(keyList[y])):
                 bufferInt = (int(bufferLst[y]) + len(dictionTable)) - int(keyList[y])
-                
             else:
                 bufferInt = int(bufferLst[y]) - int(keyList[y])
             bufferStr = bufferStr + str(bufferInt).zfill(2)
             blocks[x] = bufferStr
+
         bufferLst = AutoSeperate(blocks[x],2)
+
         if verboseflag == True:
             print("finali[{}]  : {}".format(x,bufferLst))
+
         blocks[x] = AlphaBize(bufferLst)
         bufferStr = ""
 
         output = output + blocks[x]
+
     del bufferInt
     del bufferStr
     del bufferLst
@@ -200,7 +218,7 @@ def Decode(content,key):
     output = output.replace('+',' ').strip()
     if(verboseflag==True):
         print("key \t   : {}".format(keyList))
-    print(txtcolors.OKGREEN + output)
+    print(txtcolors.BOLD + "[!]Decoded : " + txtcolors.OKGREEN + output)
 
 
 def Digitize(data): ########### This function convert the alphabets to its digital equavenlent according to the dictionTable and return the data back as string #######################
@@ -211,7 +229,7 @@ def Digitize(data): ########### This function convert the alphabets to its digit
             data = buffer
         else:
             print(txtcolors.FAIL + "[-]This program does not support other than english alphabet : EXITING...." + txtcolors.RESET)
-            exit()
+            sys.exit()
     return data
 
 def AlphaBize(data): #### This function convert the seperated number var to its alphabetical equivalent, the list must be seperated by AutoSeperate()
@@ -232,6 +250,7 @@ def AutoSeperate(data,spacing): ################## This function equally seperat
             bufferLst.append(data[incremental-spacing:incremental])
         incremental = incremental + spacing
     return bufferLst
+
         
 try:
     mode = sys.argv[1].lower()
@@ -244,16 +263,25 @@ try:
     elif verbose == '-q':
         verboseflag = False
     else:
-        exit()
+        sys.exit()
 except IndexError:
     verboseflag = False
 except:
     DisplayUsage()
-    exit()
+    sys.exit()
 
 
-
+banner = txtcolors.HEADER + "\n\nCreated by:\n" + text2art("KaungMyatThu")
+githubLink = txtcolors.BOLD + "\nGithub : https://github.com/kaung-myat-thu/\n" + txtcolors.RESET
+credit = banner + githubLink
+print(credit)
 main(mode)
+
+
+
+
+
+
 
 
 
