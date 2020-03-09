@@ -40,7 +40,7 @@
   #### Python version
   Python must be installed and setup on your system. Run below pip command in terminal
   ```
-   pip install art
+   pip install -r requirement.txt
    ```
   After this script should be ready. 
   
