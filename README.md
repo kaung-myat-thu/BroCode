@@ -19,7 +19,7 @@
   Proceed to convert the encryption key to its digital equivalent also
     ``` mykey:1325110525 ```
     
-  For each of the block each two digit in the block may sum with encrption_key relatively. In case the sum goes beyond 27 (which is total supported character count) ``` sum % 37 (total supported character count) = x ``` and take the ```x```. Then the convert the result back into it alphabetical equivalent to get encypted string.
+  For each of the block each two digit in the block may sum with encrption_key relatively. In case the sum goes beyond 36 (which is total supported character count - 1) ``` sum % 37 (total supported character count) = x ``` and take the ```x```. Then the convert the result back into it alphabetical equivalent to get encypted string.
    ```
         2308012000  0919000715  0914001514 0027282900
         1325110525  1325110525  1325110525 1325110525
@@ -49,13 +49,11 @@
 ```
 usage : python brocode.py [-d or -e] [encryption_key] [content_string] [-v or none]
 ```
-
-  Tool support both encoding and decoding with the encryption key which is predefined by both party.
   
-  To encrypt "what is goin on" text with encryption key "mykey" string. Additional -v command at the end to verbose or none at all to not verbose. 
+  To encrypt "what is goin on 123" text with encryption key "mykey" string. Additional -v command at the end to verbose or none at all to not verbose. 
   
 ```
-example : python brocode.py -e mykey "what is goin on" 
+example : python brocode.py -e mykey "what is goin on 123" 
 ```
 
 
