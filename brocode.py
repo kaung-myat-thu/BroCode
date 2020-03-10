@@ -82,7 +82,7 @@ def main(mode):
 def DisplayUsage():
         print(txtcolors.WARNING + "Usage : python {} [-d or -e] [encryption_key] [content] [-v (optional)]".format(sys.argv[0]))
         print("-d : Decode. \n-e : Encode.\n-v : verbose true , default is false")
-        print("Example : python {} -e 'castle' 'pls make me secure'".format(sys.argv[0]) + txtcolors.RESET)
+        print("Example : {} -e 'castle' 'pls make me secure'".format(sys.argv[0]) + txtcolors.RESET)
         
 
 def Encode(content, key): ####################### Encode Function Defination : This function is for encoding option ################################
