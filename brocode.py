@@ -5,7 +5,7 @@ from art import *
 
 #Created By Kaung Myat Thu 
 #This encrption tool only support english character 'a,b,...,z' , '1,2,3,...,9,0' and ' ' (spaces)
-#Github https://github.com/kaung-myat-thu/BroCode
+#Github https://github.com/kmt29/BroCode
 mode = str()
 key = str()
 content = str()
@@ -87,7 +87,7 @@ def DisplayUsage():
 
 def Encode(content, key): ####################### Encode Function Defination : This function is for encoding option ################################
 
-    content = content.replace(' ', '+')
+    content = content.replace(' ', '+') 
     key = key.replace(' ', '+')
     contLen = len(content)
     keyLen = len(key)
@@ -103,7 +103,6 @@ def Encode(content, key): ####################### Encode Function Defination : T
         while contLen > buffer:          
             buffer = counter * keyLen        
             counter = counter + 1             
-            #print(str(buffer))          #debuggin purposes
 
         content = content + '+' * (buffer - contLen)
         del buffer 
@@ -121,7 +120,7 @@ def Encode(content, key): ####################### Encode Function Defination : T
     if verboseflag == True:
         print('key: {}, content: {}'.format(key,str(blocks)))
 
-    keyList = AutoSeperate(key,2) #seperate the numbers so that it can perform maths ops
+    keyList = AutoSeperate(key,2) #seperate the digits so that it can perform maths ops
     if verboseflag == True:
         print(txtcolors.OKBLUE + "key        : {}".format(keyList) + txtcolors.RESET)
 
@@ -228,7 +227,7 @@ def Digitize(data): ########### This function convert the alphabets to its digit
             buffer = buffer + str(dictionTable.get(x)).zfill(2)
             data = buffer
         else:
-            print(txtcolors.FAIL + "[-]This program does not support other than english alphabet : EXITING...." + txtcolors.RESET)
+            print(txtcolors.FAIL + "[-]This program does not support other than a-z and 0-9 characters: EXITING...." + txtcolors.RESET)
             sys.exit()
     return data
 
@@ -271,8 +270,9 @@ except:
     sys.exit()
 
 
-banner = txtcolors.HEADER + "\n\nCreated by:\n" + text2art("KaungMyatThu")
-githubLink = txtcolors.BOLD + "\nGithub : https://github.com/kaung-myat-thu/\n" + txtcolors.RESET
+
+banner = txtcolors.HEADER + text2art("BroCode") + "\nCreated by: Kaung Myat Thu\n" 
+githubLink = txtcolors.BOLD + "\nGithub : https://github.com/kmt29/\n" + txtcolors.RESET
 credit = banner + githubLink
 print(credit)
 main(mode)
